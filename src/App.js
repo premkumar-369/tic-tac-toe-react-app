@@ -29,15 +29,45 @@ function App() {
 
 
   function handlePlayer1OnChange(e) {
-    setPlayer1(e.target.value);
+    if (player1.trim() === '') {
+      setPlayer1(e.target.value.trim());
+    }
+    else{
+      setPlayer1(e.target.value);
+    }
+
   }
 
 
   function handlePlayer2OnChange(e) {
-    setPlayer2(e.target.value);
+    if (player2.trim() === '') {
+      setPlayer2(e.target.value.trim());
+    }
+    else{
+      setPlayer2(e.target.value);
+    }
   }
 
   function handleStartGame() {
+
+    if (player1 === '') {
+      alert('Player 1 Name is Mandatory');
+      return
+    }
+
+    if (player2 === '') {
+      alert('Player 2 Name is Mandatory');
+      return
+    }
+
+    if (player1.trim() === player2.trim()) {
+      alert('Player names must be different');
+      return
+    }
+
+    setPlayer1(player1.trim());
+    setPlayer2(player2.trim());
+
     setScreen('Game')
     let localGameBoard = [['', '', ''], ['', '', ''], ['', '', '']]
     setGameBoard(localGameBoard);
@@ -148,6 +178,7 @@ function App() {
           <div style={{ margin: 5 }}>
             O : <input
               type='input'
+              value={player2}
               placeholder={'Enter Player 2 Name'}
               onChange={handlePlayer2OnChange}
             />
